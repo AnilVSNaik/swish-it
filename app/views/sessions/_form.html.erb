@@ -1,0 +1,45 @@
+<div class="card">
+  <article class="card-body">
+
+    <%= link_to 'Sign Up', sign_up_path, class: "float-right btn btn-outline-primary other-links" %>
+
+    <h4 class="card-title mb-4 mt-1">Sign in</h4>
+
+
+
+    <%= form_for :session, url: session_path do |form| %>
+
+      <div class="text-field form-group">
+        <%= form.label :email %>
+        <%= form.text_field :sign_in, placeholder: "Email or Username", class: 'form-control' %>
+      </div>
+
+      <div class="password-field form-group">
+        <%= form.label :password %>
+        <%= form.password_field :password, placeholder: "******", class: 'form-control' %>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="submit-field form-group">
+            <%= form.submit 'Sign In', class: 'btn btn-primary btn-block' %>
+          </div>
+        </div>                                         
+      </div> <!-- .row// -->   
+          
+    <hr>
+    
+    <p>
+      <%= link_to sign_up_path, class: "btn btn-block btn-outline-info disabled" do%>
+      <%= fa_icon "twitter", text: " Login via Twitter" %>
+      <% end %>
+      <%= link_to sign_up_path, class: "btn btn-block btn-outline-primary disabled" do%>
+      <%= fa_icon "facebook-f", text: " Login via Facebook" %>
+      <% end %>
+      <%= link_to "/auth/google_oauth2", class: "btn btn-block btn-outline-danger disabled" do%>
+      <%= fa_icon "google", text: " Login via Google" %>
+      <% end %>
+    </p>
+    <% end %>
+  </article>
+</div> <!-- card.// -->

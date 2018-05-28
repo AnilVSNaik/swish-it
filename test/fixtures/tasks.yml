@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  desc: MyString
+  is_complete: MyString
+  priority: 1
+  attach: 
+  user: one
+  list: one
+
+two:
+  desc: MyString
+  is_complete: MyString
+  priority: 1
+  attach: 
+  user: two
+  list: two

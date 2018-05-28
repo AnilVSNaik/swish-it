@@ -1,0 +1,13 @@
+<h1>Home#home</h1>
+<p>Find me in app/views/home/home.html.erb</p>
+
+<% if signed_in? %>
+<%= current_user.email %>
+<% end %>
+
+<% @user = User.find_by(remember_token: session[:remember_token]) %>
+<%= @user.username %>
+
+<% if signed_in? %>
+signed in!
+<% end %>
