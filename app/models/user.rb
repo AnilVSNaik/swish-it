@@ -1,6 +1,9 @@
 class User < ApplicationRecord
 	has_secure_password
 	has_many :authentications, dependent: :destroy
+	has_many :lists, dependent: :destroy
+  has_many :tasks, through: :lists, dependent: :destroy
+  acts_as_tagger
 
 	 def self.create_with_auth_and_hash(authentication, auth_hash)
 	    user = self.create!(

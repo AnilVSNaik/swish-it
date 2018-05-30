@@ -10,6 +10,10 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    respond_to do |format|
+      format.js
+      format.html { render :show }
+    end
   end
 
   # GET /tasks/new
@@ -24,10 +28,12 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
+    byebug
     @task = Task.new(task_params)
 
     respond_to do |format|
       if @task.save
+        format.js
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }
       else
@@ -42,6 +48,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
+        format.js
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
       else
@@ -56,6 +63,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
+      format.js
       format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
       format.json { head :no_content }
     end
@@ -69,6 +77,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:desc, :is_complete, :priority, :attach, :user_id, :list_id)
+      params.require(:task).permit(:desc, :is_complete, :priority, :user_id, :list_id, {attaches: []})
     end
 end

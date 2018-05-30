@@ -1,47 +1,70 @@
-<%= form_with(model: task, local: true) do |form| %>
-  <% if task.errors.any? %>
+<%= form_with(model: @task, url: list_tasks_path(params[:list_id]),local: false) do |form| %>
+  
+<div class="container">
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">Task</span>
+    </div>
+    <%= form.text_field :desc, placeholder: 'Task..', class: 'form-control' %>
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="task_priority">Priority</label>
+    </div>
+    <select class="custom-select"  id="task_priority">
+      <option selected>Choose...</option>
+      <option value="0">Low</option>
+      <option value="1">Medium</option>
+      <option value="2">High!</option>
+      <option value="3">Urgent!!</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :user_id, value: current_user.id %>
+    <%= form.hidden_field :list_id, value: params[:list_id] %>
+  </div>
+
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Upload</span>
+    </div>
+    <div class="custom-file">
+      <%= form.file_field :attaches, multiple: true, class: 'custom-file-input' %>
+      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Add', class: 'btn btn-outline-success' %>
+  </div>
+</div>
+<br/>
+<% end %>
+
+<% if !@task.id.nil? %>
+<%= form_for @task, url: task_attaches_path(@task), method: :post do |f| %>
+  <% if @task.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this @task from being saved:</h2>
 
       <ul>
-      <% task.errors.full_messages.each do |message| %>
+      <% @task.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
-
+  <%= @task.attaches %>
   <div class="field">
-    <%= form.label :desc %>
-    <%= form.text_field :desc %>
-  </div>
-
-  <div class="field">
-    <%= form.label :is_complete %>
-    <%= form.text_field :is_complete %>
-  </div>
-
-  <div class="field">
-    <%= form.label :priority %>
-    <%= form.number_field :priority %>
-  </div>
-
-  <div class="field">
-    <%= form.label :attach %>
-    <%= form.text_field :attach %>
-  </div>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :list_id %>
-    <%= form.text_field :list_id %>
+    <%= f.label :attaches %>
+    <%= f.file_field :attaches, multiple: true %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= f.submit "Add More Images" %>
   </div>
+
+<% end %>
+
 <% end %>

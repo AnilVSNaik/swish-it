@@ -50,6 +50,12 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter', :github => 'arunagw/omniauth-twitter'
 
+# Use carrierwave uploader
+gem 'carrierwave', '~> 1.0'
+
+# Use tagging system as search function
+gem 'acts-as-taggable-on', '~> 5.0'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

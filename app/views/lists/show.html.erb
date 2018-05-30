@@ -1,19 +1,46 @@
+<div class="container">
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @list.name %>
-</p>
+<h3><%= @list.name %></h3>
 
 <p>
-  <strong>Type:</strong>
-  <%= @list.type %>
+  <p><strong>Tags:</strong> <%= raw(@list.tag_list.map { |t| link_to t, tag_path(t), class: 'btn btn-sm btn-secondary' }.join(' ')) %></p>
 </p>
 
 <p>
   <strong>User:</strong>
-  <%= @list.user %>
+  <%= @list.user.username %>
 </p>
+<div class="buttons">
+<%= link_to 'Add Task', new_list_task_path(@list), class: 'btn btn-sm btn-outline-danger', remote:true %> |
+<%= link_to 'Edit', edit_list_path(@list), class: 'btn btn-sm btn-outline-secondary' %> |
+<%= link_to 'Back', lists_path, class: 'btn btn-sm btn-outline-secondary' %>
+</div>
+<br/>
+<div class="new-task"></div>
+<% if !@list.tasks.empty? %>
+<table class="table table-hover" data-toggle="table" data-click-to-select="true">
+  <thead>
+	  <col width="5%">
+	  <col width="35%">
+	  <col width="15%">
+	  <col width="15%">
+	  <col width="30%">
+    <tr>
+    	<th></th>
+      <th>Tasks</th>
+      <th>Completed</th>
+      <th>Priority</th>
+      <th>Attachments</th>
+    </tr>
+  </thead>
 
-<%= link_to 'Edit', edit_list_path(@list) %> |
-<%= link_to 'Back', lists_path %>
+  <tbody class="tbody">
+			<%= render(@tasks) %>
+		<% @list.tasks.each do |task| %>
+		<% end %>
+	</tbody>
+</table>
+<% end %>
+
+</div>

@@ -1,0 +1,12 @@
+<tr id='task-<%= task.id %>'>
+	<td><%= link_to "X", task, method: :delete,remote: true, class: 'btn btn-sm btn-danger' %></td>
+	<td class="task-name"><%= task.desc %></td>
+	<td>
+		<%= form_for task, remote: true do |f| %>
+			<%= f.check_box :is_complete %>
+		  <%= f.submit "Update" %>
+		<% end %>
+	</td>
+	<td><%= task.priority %></td>
+	<td><%= image_tag(task.attaches[0].thumb.url, class: 'profile-thumb rounded-circle') if !task.attaches.empty? %> </td>
+</tr>

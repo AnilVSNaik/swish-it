@@ -11,3 +11,27 @@
 <% if signed_in? %>
 signed in!
 <% end %>
+
+<div class="container">
+
+	<div class="all-task">
+		<h2>All Tasks</h2>
+		<% @tasks.each do |task| %>
+			<%= link_to "#{task.desc}", list_path(task.list), class: 'btn btn--sm btn-secondary' %>
+		<% end %>
+	</div>
+
+	<div class="all-list">
+		<h2>All Lists</h2>
+		<% @lists.each do |list| %>
+			<%= link_to "#{list.name}", list_path(list), class: 'btn btn--sm btn-secondary' %>
+		<% end %>
+	</div>
+
+	<div class="all-tags">
+		<h2>All Tags</h2>
+		<% @tasks.each do |task| %>
+			<%= link_to "#{task.desc}", list_path(task.list), class: 'btn btn--sm btn-secondary' %>
+		<% end %>
+	</div>
+</div>

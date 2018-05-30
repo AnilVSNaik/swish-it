@@ -1,32 +1,56 @@
-<%= form_with(model: list, local: true) do |form| %>
-  <% if list.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(list.errors.count, "error") %> prohibited this list from being saved:</h2>
+<div class="container">
+  <%= form_with(model: list, local: true) do |f| %>
+    <% if list.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(list.errors.count, "error") %> prohibited this list from being saved:</h2>
 
-      <ul>
-      <% list.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <ul>
+        <% list.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name, placeholder: "List Name", class: 'form-control' %>
+    </div>
+
+    <div class='field'>
+      <%= f.label :tag_list, 'Tags (separated by commas)' %><br/>
+      <%= f.text_field :tag_list, placeholder: 'Tags..', class: 'form-control' %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+    </div>
+
+    <hr/>
+
+    <table class='table'>
+    <thead>
+      <col width="5%">
+      <col width="35%">
+      <col width="15%">
+      <col width="15%">
+      <col width="30%">
+      <tr>
+        <th></th>
+        <th>Task Name</th>
+        <th class="text-center">Completed</th>
+        <th>Priority</th>
+        <th>Attachments</th>
+      </tr>
+    </thead>
+    <tbody class='fields'>
+      <%= f.fields_for :tasks do |builder| %>
+        <%= render 'task', f: builder %>
       <% end %>
-      </ul>
+    </tbody>
+  </table>
+
+    <br/>
+    <div class="text-center">
+      <%= link_to_add_row('Add Task', f, :tasks, class: 'btn btn-primary') %>
+      <%= f.submit class: 'btn btn-default btn-block' %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :type %>
-    <%= form.number_field :type %>
-  </div>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

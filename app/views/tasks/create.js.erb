@@ -1,0 +1,7 @@
+console.log("create")
+
+$('.new-task').html("");
+$('#new_link').show();
+$('.tbody').prepend('<%= j render(@task) %>')
+
+$('#edit_task_<%= @task.id %>').submitOnCheck();
