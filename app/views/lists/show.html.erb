@@ -4,7 +4,7 @@
 <h3><%= @list.name %></h3>
 
 <p>
-  <p><strong>Tags:</strong> <%= raw(@list.tag_list.map { |t| link_to t, tag_path(t), class: 'btn btn-sm btn-secondary' }.join(' ')) %></p>
+  <p><strong>Tags:</strong> <%= raw(@list.tag_list.map { |t| link_to t, tag_path(t), class: 'btn btn-sm btn-secondary' }.join(', ')) %></p>
 </p>
 
 <p>

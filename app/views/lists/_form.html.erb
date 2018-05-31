@@ -19,7 +19,7 @@
 
     <div class='field'>
       <%= f.label :tag_list, 'Tags (separated by commas)' %><br/>
-      <%= f.text_field :tag_list, placeholder: 'Tags..', class: 'form-control' %>
+      <%= f.text_field :tag_list, placeholder: 'Tags..', class: 'form-control', value: list.tag_list.join(",") %>
       <%= f.hidden_field :user_id, value: current_user.id %>
     </div>
 

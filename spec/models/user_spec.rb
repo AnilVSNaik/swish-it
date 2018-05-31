@@ -1,13 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:proper_email)		{ 'example@email.com' }
+  let(:proper_email)		{ 'thisemail@email.com' }
 	let(:proper_password)	{ SecureRandom.base64[0..8] }
 	let(:first_name) { 'John' }
 	let(:last_name) { 'Doe' }
 	let(:username) { 'anon' }
 	let(:birthday) { '13-03-1999' }
 	let(:improper_email)	{ 'ab@yz' }
+	let(:improper_password)	{ '1b2' }
+	let(:token) { SecureRandom.hex(10) }
+	let(:no_token) { nil }
 
 
 	context "validation: " do
@@ -15,10 +18,30 @@ RSpec.describe User, type: :model do
 		it { is_expected.to allow_value(proper_email).for(:email) }
 		it { is_expected.not_to allow_value(improper_email).for(:email)  }
 		it { is_expected.to validate_presence_of(:password) }
+		it { is_expected.not_to allow_value(improper_password).for(:password)  }
 		it { is_expected.to validate_presence_of(:first_name) }
 		it { is_expected.to validate_presence_of(:last_name) }
 		it { is_expected.to validate_presence_of(:username) }
 		it { is_expected.to validate_presence_of(:birthday) }
+		it { is_expected.to validate_presence_of(:remember_token) }
+		it { is_expected.not_to allow_value(no_token).for(:remember_token)  }
+	end
+
+	context "associations: " do
+		it "should have many authentications" do
+	    auth = User.reflect_on_association(:authentications)
+	    expect(auth.macro).to eq(:has_many)
+	  end
+
+		it "should have many lists" do
+	    lists = User.reflect_on_association(:lists)
+	    expect(lists.macro).to eq(:has_many)
+	  end
+
+		it "should have many tasks" do
+	    tasks = User.reflect_on_association(:tasks)
+	    expect(tasks.macro).to eq(:has_many)
+	  end
 	end
 
 	context "creates: " do
@@ -31,35 +54,20 @@ RSpec.describe User, type: :model do
 													birthday:birthday) }.not_to raise_error
 		end
 
-		it "won't create an entry if only one valid email is being supplied" do
-			User.create(email: proper_email)
-			expect( User.find_by(email: proper_email) ).to be nil
-		end
-
-		it "creates an entry when 2 inputs with proper_email is being supplied" do
-			User.create(email: proper_email, 
+		it "is a proper user" do
+			user = User.create(email: proper_email, 
 													password: proper_password, 
 													first_name: first_name, 
 													last_name: last_name, 
 													username:username, 
 													birthday:birthday)
-			expect( User.find_by(email: proper_email) ).not_to be nil
+			expect(user.email).to eq("thisemail@email.com")
+			expect(user.username).to eq("anon")
 		end
+
+		it "won't create an entry if only one valid email is being supplied" do
+			User.create(email: proper_email)
+			expect( User.find_by(email: proper_email) ).to be nil
+		end		
 	end
-
-	# tbc
-	# context "self.retrieve_password: " do
-	# 	it "takes in one valid email" do
-	# 		expect{ User.retrieve_password(proper_email) }.not_to raise_error
-	# 	end
-
-	# 	it "returns nil when proper email is not found" do
-	# 		expect( User.retrieve_password(proper_email) ).to be nil
-	# 	end
-
-	# 	it "returns password when proper email is found" do
-	# 		User.create(email: proper_email, password: proper_password)
-	# 		expect( User.retrieve_password(proper_email) ).to eq proper_password
-	# 	end
-	# end
 end

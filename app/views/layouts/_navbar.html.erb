@@ -37,10 +37,10 @@
 		    </ul>
 
 		    <ul class="nav navbar-nav navbar-right">
-		      <li class="nav-item"><a class="navbar-brand text-danger" href="<%= new_list_path %>" class="btn add_question text-white" data-toggle="modal" data-target="#exampleModalCenter">
-		    <i class="fa fa-plus"></i></a></li>
-		      <li class="nav-item dropdown">
+		      <a href="<%= new_list_path %>" class="navbar-brand text-danger btn">
+		    	<i class="fa fa-plus"></i></a>
 
+		      <li class="nav-item dropdown">
 		        <a class="nav-link rounded-circle btn btn-danger" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		          <%= current_user.first_name[0] %><%= current_user.last_name[0] %>
 		        </a>
@@ -60,7 +60,9 @@
 		  <!-- Brand and toggle get grouped for better mobile display -->
 		  <!-- <div class="navbar-header"> -->
 		    
-		    <a class="navbar-brand text-danger font-weight-bold" href="/">AirBnB.</a>
+		    <a class="navbar-brand text-danger font-weight-bold " href="#" role="button">
+			    <i class="fa fa-list-ul"></i> Swish It!</a>
+
 		    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
 		      <span class="navbar-toggler-icon"></span>
 		    </button>
@@ -69,14 +71,7 @@
 		  <!-- Collect the nav links, forms, and other content for toggling -->
 		  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 		    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-		      <li class="nav-item active">
-		      <%= link_to "Home", root_path, class: "nav-link" %></li>
-		      <%= form_tag('/search', local: true, method: :get, class: 'form-inline' ) do %>
-		      <%= text_field_tag(:q, nil, data: { behavior: 'autocomplete' }, placeholder: 'Search', class: 'form-co
-		      ntrol mr-sm-2') %>
-		      <%= button_tag('Search', class: 'btn btn-outline-success my-2 my-sm-0', type: 'submit') %>
-		      <% end %>
-		      
+		  
 		    </ul>
 
 		    <ul class="nav navbar-nav navbar-right">

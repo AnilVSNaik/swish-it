@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_action :login_required, :only => [:new, :create, :create_from_omniauth]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -25,6 +26,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
+    @user.remember_token = SecureRandom.hex(10)
 
     respond_to do |format|
       if @user.save
@@ -70,6 +72,6 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit( :email, :password, :first_name, :last_name, :username, :birthday,
-                                    remember_token: SecureRandom.hex(10))
+                                    :remember_token)
     end
 end

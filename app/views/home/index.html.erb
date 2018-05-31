@@ -1,37 +1,61 @@
-<h1>Home#home</h1>
-<p>Find me in app/views/home/home.html.erb</p>
-
-<% if signed_in? %>
-<%= current_user.email %>
-<% end %>
-
-<% @user = User.find_by(remember_token: session[:remember_token]) %>
-<%= @user.username %>
-
-<% if signed_in? %>
-signed in!
-<% end %>
-
 <div class="container">
+<br/>
 
-	<div class="all-task">
-		<h2>All Tasks</h2>
-		<% @tasks.each do |task| %>
-			<%= link_to "#{task.desc}", list_path(task.list), class: 'btn btn--sm btn-secondary' %>
-		<% end %>
+	<div class="jumbotron">
+	  <div class="container">
+	    <h2>Joke Of The Day</h2>
+	    <p id="joke" class="lead"></p>
+	  </div>
 	</div>
 
-	<div class="all-list">
-		<h2>All Lists</h2>
-		<% @lists.each do |list| %>
-			<%= link_to "#{list.name}", list_path(list), class: 'btn btn--sm btn-secondary' %>
-		<% end %>
+	<div class="card">
+	  <div class="card-header">
+	    All Tasks
+	  </div>
+	  <div class="card-body">
+	    <% @tasks.each do |task| %>
+				<%= link_to "#{task.desc}", list_path(task.list), class: 'btn btn--sm btn-secondary' %>
+			<% end %>
+	  </div>
 	</div>
 
-	<div class="all-tags">
-		<h2>All Tags</h2>
-		<% @tasks.each do |task| %>
-			<%= link_to "#{task.desc}", list_path(task.list), class: 'btn btn--sm btn-secondary' %>
-		<% end %>
+	<br/>
+
+	<div class="card">
+	  <div class="card-header">
+	    All Lists
+	  </div>
+	  <div class="card-body">
+	    <% @lists.each do |list| %>
+				<%= link_to "#{list.name}", list_path(list), class: 'btn btn--sm btn-secondary' %>
+			<% end %>
+	  </div>
 	</div>
-</div>
+
+	<br/>
+
+	<div class="card">
+	  <div class="card-header">
+	    All Tags
+	  </div>
+	  <div class="card-body">
+	  	<% @lists.each do |list| %>
+	    	<%= raw(list.tag_list.map { |t| link_to t, tag_path(t), class: 'btn btn-sm btn-secondary' }.join(' ')) %>
+			<% end %>
+	  </div>
+	</div>
+
+<script>
+	$(document).ready(function() {
+	$.ajax({
+		type: "GET",
+		url: "https://api.chucknorris.io/jokes/random",
+		dataType: "json",
+		success: function(data){
+			console.log(data)
+			$('#joke').append(data.value)
+		}
+	})
+		
+	})
+</script>

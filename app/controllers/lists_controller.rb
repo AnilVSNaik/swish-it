@@ -52,6 +52,7 @@ class ListsController < ApplicationController
   # PATCH/PUT /lists/1.json
   def update
     @list.attributes = list_params
+    @list.tag_list.remove(@list.tag_list)
     @list.tag_list.add(params[:list][:tag_list], parse: true)
     respond_to do |format|
       if @list.save

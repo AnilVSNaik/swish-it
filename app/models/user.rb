@@ -3,7 +3,18 @@ class User < ApplicationRecord
 	has_many :authentications, dependent: :destroy
 	has_many :lists, dependent: :destroy
   has_many :tasks, through: :lists, dependent: :destroy
-  acts_as_tagger
+
+  validates :email, 
+  		   		:presence => true, 
+  		  		:uniqueness => true,
+  		  		:format => {with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]{2,}+\z/, message: 'is not a valid email address'}
+
+	validates :password, :presence=> true, :length => {:within => 4..40}
+	validates :first_name, :presence=> true
+	validates :last_name, :presence=> true
+	validates :username, :presence=> true, :length => {:within => 2..40}
+	validates :birthday, :presence=> true
+	validates :remember_token, :presence=> true
 
 	 def self.create_with_auth_and_hash(authentication, auth_hash)
 	    user = self.create!(

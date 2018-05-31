@@ -1,9 +1,10 @@
 class HomeController < ApplicationController
-	skip_before_action :login_required, :only => [:index]
 
   def index
   	@lists = current_user.lists
   	@tasks = current_user.tasks
-  	@tags = List.tag_counts_on(:tags)
+  	@tags_arr = []
+  	@lists.each { |list| list.tag_list.each {|tag| @tags_arr << tag} }
+  	@tags = @tags_arr.uniq
   end
 end
