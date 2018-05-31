@@ -13,8 +13,12 @@
 	    All Tasks
 	  </div>
 	  <div class="card-body">
-	    <% @tasks.each do |task| %>
-				<%= link_to "#{task.desc}", list_path(task.list), class: 'btn btn--sm btn-secondary' %>
+	  	<% if @tasks.empty? %>
+	  		<h6>There is no task. <%= link_to 'Create one!', new_list_path %> </h6>
+	  	<% else %>
+		    <% @tasks.each do |task| %>
+					<%= link_to "#{task.desc}", list_path(task.list), class: 'btn btn--sm btn-secondary' %>
+				<% end %>
 			<% end %>
 	  </div>
 	</div>
@@ -26,8 +30,12 @@
 	    All Lists
 	  </div>
 	  <div class="card-body">
-	    <% @lists.each do |list| %>
-				<%= link_to "#{list.name}", list_path(list), class: 'btn btn--sm btn-secondary' %>
+	  	<% if @tasks.empty? %>
+	  		<h6>There is no task. <%= link_to 'Create one!', new_list_path %> </h6>
+	  	<% else %>
+		    <% @lists.each do |list| %>
+					<%= link_to "#{list.name}", list_path(list), class: 'btn btn--sm btn-secondary' %>
+				<% end %>
 			<% end %>
 	  </div>
 	</div>
@@ -39,8 +47,12 @@
 	    All Tags
 	  </div>
 	  <div class="card-body">
-	  	<% @lists.each do |list| %>
-	    	<%= raw(list.tag_list.map { |t| link_to t, tag_path(t), class: 'btn btn-sm btn-secondary' }.join(' ')) %>
+	  	<% if @tasks.empty? %>
+	  		<h6>There is no tags.</h6>
+	  	<% else %>
+		  	<% @lists.each do |list| %>
+		    	<%= raw(list.tag_list.map { |t| link_to t, tag_path(t), class: 'btn btn-sm btn-secondary' }.join(' ')) %>
+				<% end %>
 			<% end %>
 	  </div>
 	</div>

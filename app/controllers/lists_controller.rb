@@ -4,7 +4,6 @@ class ListsController < ApplicationController
   # GET /lists
   # GET /lists.json
   def index
-    byebug
     if params[:tag]
       @lists = List.tagged_with(params[:tag])
     elsif params[:search]
