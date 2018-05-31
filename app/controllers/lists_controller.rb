@@ -50,6 +50,7 @@ class ListsController < ApplicationController
   # PATCH/PUT /lists/1
   # PATCH/PUT /lists/1.json
   def update
+    byebug
     @list.attributes = list_params
     @list.tag_list.remove(@list.tag_list)
     @list.tag_list.add(params[:list][:tag_list], parse: true)

@@ -6,15 +6,16 @@
   <td><%= f.text_field :desc, placeholder: "New Item", class: 'form-control' , type: 'text' %></td>
   <td class="text-center"><%= f.check_box :is_complete %></td>
   <td>
-	  <div class="form-group">
-	    <select class="custom-select"  id="task_priority">
+  <div class="form-group">
+    <%= f.select :priority, ['low', 'medium', 'high', 'urgent'], class: 'custom-select' %>
+	    <!-- <select class="custom-select" id="task_priority" name="task_priority">
 	      <option selected>Choose...</option>
 	      <option value="0">Low</option>
 	      <option value="1">Medium</option>
 	      <option value="2">High!</option>
 	      <option value="3">Urgent!!</option>
-	    </select>
-	  </div>
+	    </select> -->
+      </div>
   	<%= f.hidden_field :user_id, value: current_user.id %>
   </td>
   <td class="text-center"><%= f.file_field :attaches, multiple: true %></td>
