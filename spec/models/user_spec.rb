@@ -21,8 +21,6 @@ RSpec.describe User, type: :model do
 		it { is_expected.not_to allow_value(improper_password).for(:password)  }
 		it { is_expected.to validate_presence_of(:first_name) }
 		it { is_expected.to validate_presence_of(:last_name) }
-		it { is_expected.to validate_presence_of(:username) }
-		it { is_expected.to validate_presence_of(:birthday) }
 		it { is_expected.to validate_presence_of(:remember_token) }
 		it { is_expected.not_to allow_value(no_token).for(:remember_token)  }
 	end

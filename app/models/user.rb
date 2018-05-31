@@ -12,8 +12,6 @@ class User < ApplicationRecord
 	validates :password, :presence=> true, :length => {:within => 4..40}
 	validates :first_name, :presence=> true
 	validates :last_name, :presence=> true
-	validates :username, :presence=> true, :length => {:within => 2..40}
-	validates :birthday, :presence=> true
 	validates :remember_token, :presence=> true
 
 	 def self.create_with_auth_and_hash(authentication, auth_hash)
