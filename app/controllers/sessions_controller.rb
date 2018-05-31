@@ -38,12 +38,12 @@ class SessionsController < ApplicationController
       if user
         user.authentications << authentication
         authentication.update_token(auth_hash)
-        @next = root_url
+        @next = home_url
         flash[:success], @notice = "Signed in!"
       else
         user = User.create_with_auth_and_hash(authentication, auth_hash)
         # you are expected to have a path that leads to a page for editing user details
-        @next = root_url
+        @next = home_url
         # edit_user_path(user)
         flash[:success], @notice = "User created. Please confirm or edit details"
       end
